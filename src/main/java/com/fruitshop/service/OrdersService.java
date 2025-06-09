@@ -86,7 +86,7 @@ public class OrdersService {
 
         // 如果沒有成功購買任何東西
         if (totalPrice == 0) {
-            return customerName + "你好，沒有成功購買任何商品，請確認庫存與數量。";
+            return customerName + "你好，沒有成功購買任何商品，請確認庫存與購買數量。";
         }
 
         // 若是有商品 就移除最後一個多的頓號
