@@ -23,6 +23,9 @@ public class Orders {
     @Column(name = "created_time")
     private LocalDateTime createdTime;
 
+    @Column(name = "status")
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -53,6 +56,14 @@ public class Orders {
 
     public void setTotalPrice(Integer totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreatedTime() {

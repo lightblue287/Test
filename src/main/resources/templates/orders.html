@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>下單頁面</title>
 </head>
+
 <body>
 <h2>水果商店 - 建立訂單</h2>
 
@@ -46,24 +47,26 @@
 
 <hr>
 
-<!-- 歷史訂單 -->
-<h3>歷史訂單紀錄</h3>
+<!-- 採購表 -->
+<h3>採購表</h3>
 <table style = "border: 1px solid black">
   <thead>
-  <tr>
-    <th>訂單編號</th>
-    <th>姓名</th>
-    <th>購買內容</th>
-    <th>總金額</th>
-    <th>下單時間</th>
+  <tr style="width: 80px; text-align: center;">
+    <th >訂單編號</th>
+    <th >姓名</th>
+    <th style="width: 220px;">購買內容</th>
+    <th >總金額</th>
+    <th>訂單狀態</th>
+    <th style="width: 220px;">下單時間</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="order : ${orders}">
+  <tr style="text-align: center;" th:each="order : ${orders}">
     <td th:text="${order.id}"></td>
     <td th:text="${order.customerName}"></td>
     <td th:text="${order.productDetail}"></td>
     <td th:text="${order.totalPrice} + ' 元'"></td>
+    <td th:text="${order.status}"></td>
     <td th:text="${#temporals.format(order.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
   </tr>
   </tbody>

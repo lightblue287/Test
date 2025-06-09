@@ -40,6 +40,14 @@ public class OrdersService {
                     Product product = productRepo.findById(productId).orElse(null);
                     if (product != null) {
                         if (product.getStock() < quantity) {
+                            Orders failedOrder = new Orders();
+                            failedOrder.setCustomerName(customerName);
+                            failedOrder.setProductDetail("下單失敗：%s 數量不足".formatted(product.getName()));
+                            failedOrder.setTotalPrice(0);
+                            failedOrder.setCreatedTime(LocalDateTime.now());
+                            failedOrder.setStatus(0); // 失敗
+                            ordersRepo.save(failedOrder);
+
                             return customerName + "你好，商品「" + product.getName() + "」庫存不足，請重新選擇數量";
                         }
 
@@ -89,6 +97,7 @@ public class OrdersService {
         order.setProductDetail(productDetail.toString());
         order.setTotalPrice(totalPrice);
         order.setCreatedTime(LocalDateTime.now());
+        order.setStatus(1);
 
         ordersRepo.save(order);
 
