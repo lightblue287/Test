@@ -6,6 +6,8 @@ import com.fruitshop.repository.OrdersRepository;
 import com.fruitshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class OrdersService {
         return ordersRepo.findAll();
     }
 
+    @Transactional
     public String createOrder(String customerName, Map<String, String> allProducts) {
         int totalPrice = 0;
         StringBuilder productDetail = new StringBuilder();
@@ -73,9 +76,9 @@ public class OrdersService {
 
                         // 建立商品摘要文字
                         productDetail.append(product.getName())
-                                .append(quantity)
-                                .append(unit)
-                                .append("、");
+                                     .append(quantity)
+                                     .append(unit)
+                                     .append("、");
                     }
                 }
             }
@@ -86,7 +89,7 @@ public class OrdersService {
             return customerName + "你好，沒有成功購買任何商品，請確認庫存與數量。";
         }
 
-        // 移除最後一個標點符號
+        // 若是有商品 就移除最後一個多的頓號
         if (productDetail.length() > 0) {
             productDetail.setLength(productDetail.length() - 1);
         }

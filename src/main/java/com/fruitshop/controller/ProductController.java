@@ -14,7 +14,7 @@ public class ProductController {
     @Autowired
     private ProductService productSvc;
 
-    @GetMapping
+    @GetMapping("All")
     public String ProductList(Model model) {
         model.addAttribute("products", productSvc.getAllProducts());
         return "index";
