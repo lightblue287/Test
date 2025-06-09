@@ -61,7 +61,7 @@ public class OrdersService {
                         // 決定單位
                         String unit = "";
                         String name = product.getName();
-                        if ("蘋果".equals(name)) {
+                        if ("蘋果".equals(name) || "鳳梨".equals(name) ) {
                             unit = "顆";
                         } else if ("香蕉".equals(name)) {
                             unit = "條";
