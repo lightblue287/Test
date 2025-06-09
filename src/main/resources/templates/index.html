@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>水果品項列表</title>
+</head>
+<style>
+    th, td {
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+</style>
+<body>
+<h1>水果商品列表</h1>
+<table style = "border: 1px solid black">
+    <tr>
+        <th>編號</th><th>水果名稱</th><th>價格</th><th>庫存</th>
+    </tr>
+    <tr th:each="p : ${products}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.name}"></td>
+        <td th:text="${p.price}"></td>
+        <td th:text="${p.stock}"></td>
+    </tr>
+
+</table>
+</body>
+</html>
