@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>下單頁面</title>
+</head>
+<body>
+<h2>水果商店 - 建立訂單</h2>
+
+<!-- 顯示訊息 -->
+<div th:if="${successMsg}" style="color: red; font-weight: bold;">
+  <p th:text="${successMsg}"></p>
+</div>
+
+<!-- 下單表單 -->
+<form th:action="@{/orders/add}" method="post">
+  <label for="customerName">姓名：</label>
+  <input type="text" id="customerName" name="customerName" required />
+
+  <table style = "border: 1px solid black">
+    <thead>
+    <tr>
+      <th>商品</th>
+      <th>價格</th>
+      <th>庫存</th>
+      <th>購買數量</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${products}">
+      <td th:text="${p.name}"></td>
+      <td th:text="${p.price} + ' 元'"></td>
+      <td th:text="${p.stock}"></td>
+      <td>
+        <input type="number"
+               th:name="${p.id}"
+               min="0" max="10" value="0">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <button type="submit">下單</button>
+</form>
+
+<hr>
+
+<!-- 歷史訂單 -->
+<h3>歷史訂單紀錄</h3>
+<table style = "border: 1px solid black">
+  <thead>
+  <tr>
+    <th>訂單編號</th>
+    <th>姓名</th>
+    <th>購買內容</th>
+    <th>總金額</th>
+    <th>下單時間</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="order : ${orders}">
+    <td th:text="${order.id}"></td>
+    <td th:text="${order.customerName}"></td>
+    <td th:text="${order.productDetail}"></td>
+    <td th:text="${order.totalPrice} + ' 元'"></td>
+    <td th:text="${#temporals.format(order.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
