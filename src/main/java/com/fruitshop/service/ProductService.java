@@ -1,6 +1,7 @@
 package com.fruitshop.service;
 
 import com.fruitshop.model.Product;
+import com.fruitshop.model.enums.ProductStatus;
 import com.fruitshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class ProductService {
     private ProductRepository productRepo;
 
     public List<Product> getAllProducts() {
-        return productRepo.findByStatus(1);
+        return productRepo.findByStatus(ProductStatus.ON_SHELF.getStatus());
     }
 
     public Product findById(Integer id) {
@@ -23,7 +24,7 @@ public class ProductService {
     }
 
     public Product createProduct(Product product) {
-        product.setStatus(1); // 預設為上架
+        product.setStatus(ProductStatus.ON_SHELF.getStatus()); // 預設為上架
         return productRepo.save(product);
     }
 
@@ -40,7 +41,7 @@ public class ProductService {
     public void deleteProduct(Integer id) {
         Product productExist = productRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("找不到編號為：" + id + "的水果品項，無法刪除"));
-        productExist.setStatus(0); // 商品狀態設為0=下架
+        productExist.setStatus(ProductStatus.OFF_SHELF.getStatus());
         productRepo.save(productExist);
     }
 }

@@ -1,21 +1,17 @@
 package com.fruitshop.service;
 
 import com.fruitshop.model.Orders;
-import com.fruitshop.model.Product;
 import com.fruitshop.repository.OrdersRepository;
-import com.fruitshop.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
@@ -26,6 +22,7 @@ public class OrdersServiceMockTest {
 
     @MockBean
     private OrdersRepository ordersRepo;
+
 
     @Test
     public void createOrderTest() {

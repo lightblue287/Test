@@ -2,6 +2,7 @@ package com.fruitshop.service;
 
 import com.fruitshop.model.Orders;
 import com.fruitshop.model.Product;
+import com.fruitshop.model.enums.OrderStatus;
 import com.fruitshop.repository.OrdersRepository;
 import com.fruitshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class OrdersService {
                             failedOrder.setProductDetail("下單失敗：%s 數量不足".formatted(product.getName()));
                             failedOrder.setTotalPrice(0);
                             failedOrder.setCreatedTime(LocalDateTime.now());
-                            failedOrder.setStatus(0); // 失敗
+                            failedOrder.setStatus(OrderStatus.ORDER_FAILED.getStatus()); // 失敗
                             ordersRepo.save(failedOrder);
 
                             return customerName + "你好，商品「" + product.getName() + "」庫存不足，請重新選擇數量";
@@ -100,7 +101,7 @@ public class OrdersService {
         order.setProductDetail(productDetail.toString());
         order.setTotalPrice(totalPrice);
         order.setCreatedTime(LocalDateTime.now());
-        order.setStatus(1);
+        order.setStatus(OrderStatus.ORDER_SUCCESS.getStatus());
 
         ordersRepo.save(order);
 
