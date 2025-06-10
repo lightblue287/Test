@@ -29,7 +29,7 @@ public class ProductService {
 
     public Product updateProduct(Integer id, Product updatedProduct) {
         Product productExist = productRepo.findById(id)
-                              .orElseThrow(() -> new IllegalArgumentException("找不到商品編號為：" + id + "的水果品項，無法更新"));
+                .orElseThrow(() -> new IllegalArgumentException("找不到商品編號為：" + id + "的水果品項，無法更新"));
 
         productExist.setName(updatedProduct.getName());
         productExist.setPrice(updatedProduct.getPrice());
