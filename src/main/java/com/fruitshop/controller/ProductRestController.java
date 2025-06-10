@@ -17,46 +17,46 @@ public class ProductRestController {
     private ProductService productSvc;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> findAll() {
+    public ResponseEntity<?> findAll() {
         List<Product> products = productSvc.getAllProducts();
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Integer id) {
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
         try {
             Product product = productSvc.findById(id);
             return ResponseEntity.ok(product);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @PostMapping("/product")
-    public ResponseEntity<Product> create(@RequestBody Product product) {
+    public ResponseEntity<?> create(@RequestBody Product product) {
         try {
-            Product created = productSvc.createProduct(product);
-            return ResponseEntity.status(HttpStatus.CREATED).body(created);
+            productSvc.createProduct(product);
+            return ResponseEntity.ok("商品：" + product.getName() + " 已成功新增");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @PutMapping("/product/{id}")
-    public ResponseEntity<Product> update(@PathVariable Integer id, @RequestBody Product updatedProduct) {
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Product updatedProduct) {
         try {
-            Product updated = productSvc.updateProduct(id, updatedProduct);
-            return ResponseEntity.ok(updated);
+            productSvc.updateProduct(id, updatedProduct);
+            return ResponseEntity.ok("商品:"+ updatedProduct.getName()+"已成功修改");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteById(@PathVariable Integer id) {
         try {
-            productSvc.deleteProduct(id);
-            return ResponseEntity.ok("商品已成功下架");
+            Product deletedProduct = productSvc.deleteProduct(id);
+            return ResponseEntity.ok("商品：" + deletedProduct.getName() + "已成功下架");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
